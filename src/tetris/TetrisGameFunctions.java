@@ -1,30 +1,49 @@
-/*
- * Tetris Game 
- * @author Rodrigo Mompo Redoli
- * 
- * 
- * 
- * 
- * 
- */
 package tetris;
+
 import java.util.Scanner;
-import tetrispieces.*;
-public class Tetris {
-  //Scanner for taking data V1.0
-	 private static Scanner in;
-  //Function
-	public static boolean boardSpaceLeft(boolean [][] board){
-		for(int row = 0; row<2;row++){
+import tetrispieces.LeftPiece;
+import tetrispieces.LeftSPiece;
+import tetrispieces.LinePiece;
+import tetrispieces.RightPiece;
+import tetrispieces.RightSPiece;
+import tetrispieces.SquarePiece;
+import tetrispieces.TPiece;
+import tetrispieces.TetrisPiece;
+
+public class TetrisGameFunctions {
+    //Variables for the game
+    private boolean boardSpaceLeft = true;
+    private TetrisPiece currentPiece;
+    private String button;
+    private boolean board [][] = new boolean  [8][8];
+    private boolean auxboard [][] = new boolean  [8][8];
+    public TetrisPrint tempBoard = new TetrisPrint(board);	//Check visibility
+    private int rowcompletenumber = -1;
+    private int numberPieces=0;
+    private int score = 0;
+   TetrisGameFunctions(){
+        
+        currentPiece = randomPiece();
+        //FIXME: change for a graphical interface
+        tempBoard.insertNewPiece(currentPiece);
+        tempBoard.printBoard();
+   } 
+        public int getScore(){return score;}
+        public int getSNumberPieces(){return numberPieces;}
+        public void writeButton(String buttonin){
+            this.button = buttonin;
+        }
+   	private boolean boardSpaceLeft(){
+		for(int row = 0; row<3;row++){
 			for(int col=0; col<3;col++){
-				if(board[row][col]){
+				if(this.board[row][col]){
 				return false;	
 				}
 			}
 		} 
 		return true;
 	}
-	public static void insertNewPieceBoard(TetrisPiece currentPiece, boolean[][] board ){
+	private  void insertNewPieceBoard(TetrisPiece currentPiece, boolean[][] board ){
 	    	int x = currentPiece.getPositionX();
 	    	int y = currentPiece.getPositionY();
 	    	
@@ -39,7 +58,7 @@ public class Tetris {
 				y++;
 			}
 	    }
-    public static TetrisPiece randomPiece(){
+        private  TetrisPiece randomPiece(){
 	  TetrisPiece currentPiece;
 	  double random = Math.random()*0.9;		
       random *= 8;
@@ -72,7 +91,7 @@ public class Tetris {
        }
       return currentPiece;
 	}
-	public static int isRowComplete(boolean[][] board){
+	private  int isRowComplete(boolean[][] board){
 		int currentrow = -1;
 		int counter;
 		for(int row=board.length-1;row>=0;row--){
@@ -91,54 +110,28 @@ public class Tetris {
 	  }
 		return -1;
 	}
-    public static void game(){
-		//Variables
-		in = new Scanner(System.in);
-	    boolean boardSpaceLeft = true;
-	    TetrisPiece currentPiece;
-	    String button;
-		boolean board [][] = new boolean  [8][8];
-		boolean auxboard [][] = new boolean  [8][8];
-		TetrisPrint tempBoard = new TetrisPrint(board);	
-		int rowcompletenumber = -1;
-		int numberPieces=0;
-		int score = 0;
-		//End of declaration of variables and initialation of onjects
-		System.out.println("\n.........................................."+
-		                   "\n..........Starting the game..............."+
-	                       "\n.........................................."+
-		                   "\n............(Press Any Key)...............");
-		in.next();
-        while(boardSpaceLeft){
-        	
-    	  currentPiece = randomPiece();
-    	  tempBoard.insertNewPiece(currentPiece);
-    	   while(!currentPiece.cantMoveMore){//Select movement 
-    		   System.out.println("You put "+numberPieces+" pieces in the board");
-    		   System.out.println("Score: "+score);
-    		   tempBoard.printBoard();
-    		   System.out.print("\nInsert your next movement: ");
-    		   button = in.next();
-    		   switch(button){
-    		   case "a" :
+        private boolean movePiece(){
+            switch(button){
+    		   case "A" :
     			   tempBoard = new TetrisPrint(board) ;
     			   //System.out.println("Debug: a");//For debugging
     			   currentPiece.goLeft(board);
     			   tempBoard.insertNewPiece(currentPiece);
+                           
     			   break;
-    		   case "s" :
+    		   case "S" :
     			   tempBoard = new TetrisPrint(board) ;
     			   //System.out.println("Debug: s");//For debugging
     			   currentPiece.cantMoveMore = currentPiece.goDown(board);
     			   tempBoard.insertNewPiece(currentPiece);
     			   break;
-    		   case "d" :
+    		   case "D" :
     			   tempBoard = new TetrisPrint(board) ;
     			   //System.out.println("Debug: d");//For debugging
     			   currentPiece.goRight(board);
     			   tempBoard.insertNewPiece(currentPiece);
     			   break;
-    		   case "w" :
+    		   case "W" :
     			   tempBoard = new TetrisPrint(board) ;
     			   //System.out.println("Debug: w");//For debugging
     			   while(!currentPiece.cantMoveMore){
@@ -146,28 +139,28 @@ public class Tetris {
     			   }
     			   tempBoard.insertNewPiece(currentPiece);
     			   break;
-    		   case "l" :
+    		   case "L" :
     			   tempBoard = new TetrisPrint(board) ;
     			   //System.out.println("Debug: l");//For debugging
     			   currentPiece.rotate();
     			   tempBoard.insertNewPiece(currentPiece);
     			   break;
     		   default:
-    		       System.out.println("The button is not valid, try again");
+    		          //System.out.println("The button is not valid"
+                          //+", try again");//For debuging
     			   break;   
     		   }
     		    
-    	   }//End of selection of movement
-    	  
-    	   insertNewPieceBoard(currentPiece,board);
-    	   numberPieces +=1;
-    	   score +=1;
-    	   auxboard = board;
-    	   //Check if a row is complete and eliminate it 
-    	   rowcompletenumber = isRowComplete(auxboard);
+    	   //End of selection of movement
+       
+        return currentPiece.cantMoveMore;
+     }
+        private void changeRowComplete(){
+           rowcompletenumber = isRowComplete(board);
+           auxboard = board;
     	   while(!(rowcompletenumber == -1)){
-    		rowcompletenumber = isRowComplete(auxboard);
-    		System.out.println("rowcomplete: "+rowcompletenumber);
+    		rowcompletenumber = isRowComplete(board);
+                auxboard = board;
     		if(!(rowcompletenumber==-1)){
     			for(int i = rowcompletenumber; i >0;i--){
     				for(int col=0;col<auxboard[0].length;col++){
@@ -180,17 +173,30 @@ public class Tetris {
     			score +=5;
     			tempBoard = new TetrisPrint(board) ;
     		}
-    	   }
-    	   //Check if the board is complete
-    	   boardSpaceLeft = boardSpaceLeft(board);
-    	  
+           }
         }
-        System.out.println("Game Over\nScore: "+score);
-	}
-   //For testing new things 
-    public static void debug(){
+    //This is the principal method
+    public  boolean iteration(String buttonin){
+    	   this.writeButton(buttonin);
+           if(this.movePiece()){
+              if(boardSpaceLeft()){
+              numberPieces +=1;
+              score+=1;
+              insertNewPieceBoard(currentPiece,board);
+              this.changeRowComplete();
+              currentPiece =this.randomPiece();
+              tempBoard = new TetrisPrint(board) ;
+              tempBoard.insertNewPiece(currentPiece);
+              }else{
+               return false;
+             }
+           }
+           //FIXME: change for a graphical interface
+           
+           tempBoard.printBoard();
+       return true;
     }
-	public static void main(String[] args){
-		game();
-	}
 }
+        
+	
+

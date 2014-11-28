@@ -28,6 +28,7 @@ public class TetrisPrint {
 			}
 			System.out.println();	
 		} 
+             System.out.println("\n");   
     }
     public void insertNewPiece(TetrisPiece currentPiece){
     	int x = currentPiece.getPositionX();
