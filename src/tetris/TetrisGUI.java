@@ -37,6 +37,7 @@ public class TetrisGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tetris");
+        setBackground(new java.awt.Color(0, 204, 204));
         setResizable(false);
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -52,7 +53,7 @@ public class TetrisGUI extends javax.swing.JFrame {
 
         numberPiecesValue.setText("0");
 
-        canvas2.setBackground(new java.awt.Color(255, 255, 0));
+        canvas2.setBackground(new java.awt.Color(0, 0, 0));
         canvas2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         canvas2.setMaximumSize(new java.awt.Dimension(450, 450));
         canvas2.setMinimumSize(new java.awt.Dimension(401, 401));
@@ -121,12 +122,16 @@ public class TetrisGUI extends javax.swing.JFrame {
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
          if(!gameBoard.iteration(KeyEvent.getKeyText(evt.getKeyCode()))){
                          //FIXME: change for a graphical interface
-                        System.out.println("GameOver");
-                       }
+                        BoardCanvas.setGameOver(true);
+                        canvas2.repaint();
+                        System.out.println("gameOver");
+         }else{
+         BoardCanvas.setGameOver(false);
          writeNumberPieces();
          writeScore();
-         canvas2.writeBoard(gameBoard.tempBoard);
+         BoardCanvas.setBoard(gameBoard.tempBoard);
          canvas2.repaint();
+         }
     }//GEN-LAST:event_formKeyReleased
 
     private void jMenuItem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseClicked
@@ -147,6 +152,10 @@ public class TetrisGUI extends javax.swing.JFrame {
         gameBoard = new TetrisGameFunctions();
         writeNumberPieces();
         writeScore();
+        BoardCanvas.setBoard(gameBoard.tempBoard);
+        BoardCanvas.setGameOver(false);
+        canvas2.repaint();
+        
     }
 
     public static void main(String args[]) {

@@ -26,7 +26,7 @@ public class TetrisGameFunctions {
         currentPiece = randomPiece();
         //FIXME: change for a graphical interface
         tempBoard.insertNewPiece(currentPiece);
-        tempBoard.printBoard();
+        //tempBoard.printBoard();
    } 
         public int getScore(){return score;}
         public int getSNumberPieces(){return numberPieces;}
@@ -114,26 +114,26 @@ public class TetrisGameFunctions {
             switch(button){
     		   case "A" :
     			   tempBoard = new TetrisPrint(board) ;
-    			   //System.out.println("Debug: a");//For debugging
+    			   System.out.println("Debug: a");//For debugging
     			   currentPiece.goLeft(board);
     			   tempBoard.insertNewPiece(currentPiece);
                            
     			   break;
     		   case "S" :
     			   tempBoard = new TetrisPrint(board) ;
-    			   //System.out.println("Debug: s");//For debugging
+    			   System.out.println("Debug: s");//For debugging
     			   currentPiece.cantMoveMore = currentPiece.goDown(board);
     			   tempBoard.insertNewPiece(currentPiece);
     			   break;
     		   case "D" :
     			   tempBoard = new TetrisPrint(board) ;
-    			   //System.out.println("Debug: d");//For debugging
+    			   System.out.println("Debug: d");//For debugging
     			   currentPiece.goRight(board);
     			   tempBoard.insertNewPiece(currentPiece);
     			   break;
     		   case "W" :
     			   tempBoard = new TetrisPrint(board) ;
-    			   //System.out.println("Debug: w");//For debugging
+    			   System.out.println("Debug: w");//For debugging
     			   while(!currentPiece.cantMoveMore){
     			   currentPiece.cantMoveMore = currentPiece.goDown(board);
     			   }
@@ -141,13 +141,13 @@ public class TetrisGameFunctions {
     			   break;
     		   case "L" :
     			   tempBoard = new TetrisPrint(board) ;
-    			   //System.out.println("Debug: l");//For debugging
+    			   System.out.println("Debug: l");//For debugging
     			   currentPiece.rotate();
     			   tempBoard.insertNewPiece(currentPiece);
     			   break;
     		   default:
-    		          //System.out.println("The button is not valid"
-                          //+", try again");//For debuging
+    		          System.out.println("The button is not valid"
+                          +", try again");//For debuging
     			   break;   
     		   }
     		    
@@ -193,7 +193,7 @@ public class TetrisGameFunctions {
            }
            //FIXME: change for a graphical interface
            
-           tempBoard.printBoard();
+           //tempBoard.printBoard();
        return true;
     }
 }
