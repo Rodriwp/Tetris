@@ -3,7 +3,7 @@ package tetris;
 import java.awt.*;
 public class BoardCanvas extends Canvas{
     public int squareWidth;
-    private final Font FONT = new Font("TimesRoman", Font.BOLD, 50);
+    private final Font FONT = new Font("TimesRoman", Font.BOLD, 70);
     private static int [][] printBoard;
     private static boolean gameOver = false;
     BoardCanvas(TetrisGameFunctions gameBoard){
@@ -14,7 +14,10 @@ public class BoardCanvas extends Canvas{
     public static void setBoard(TetrisPrint tempboard){
         printBoard = tempboard.board;
     }
-    public  static void setGameOver(boolean a){
+    /*public static  void repaintCanvas(Canvas canvas2){
+        canvas2.repaint();
+    }*/
+    public static void setGameOver(boolean a){
         gameOver = a;
     }
     public static boolean getGameOver(){
@@ -50,7 +53,7 @@ public class BoardCanvas extends Canvas{
                         g.setColor(Color.magenta);                                         
                         break;
                     case 7:
-                        g.setColor(Color.blue);                                        
+                        g.setColor(Color.red);                                        
                         break;           
                }   
               g.fillRect(i+1, j+1, squareWidth-1, squareWidth-1);
@@ -63,7 +66,7 @@ public class BoardCanvas extends Canvas{
       if(gameOver){
         g.setColor(Color.red);
         g.setFont(FONT);
-        g.drawString("GameOver", 75, 200);
+        g.drawString("GameOver", 20, 200);
        }
      }
 

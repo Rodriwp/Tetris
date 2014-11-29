@@ -1,8 +1,10 @@
 
 package tetris;
+import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
 
 /**
  *This is the main class of this tetris game
@@ -15,11 +17,18 @@ import javax.swing.JFrame;
  */
 public class TetrisGUI extends javax.swing.JFrame {
     private TetrisGameFunctions gameBoard;
+    public Thread speed;
     private int gameDimension = 8;
     public TetrisGUI() {
+        
         gameBoard = new TetrisGameFunctions(gameDimension);
         initComponents();
-        this.setBackground(Color.blue);
+        setBackground(Color.blue);
+        setIconImage(new ImageIcon(getClass().getResource("/images/TetrisLogoFondoNegro.png")).getImage());
+        //Thread for autogoDown 
+         speed = new Thread(new SpeedRunnable(this,this.gameBoard));
+        //End of the thread
+         speed.start();
     }
 
     /**
@@ -36,6 +45,7 @@ public class TetrisGUI extends javax.swing.JFrame {
         scoreValue = new javax.swing.JLabel();
         numberPiecesValue = new javax.swing.JLabel();
         canvas2 = new BoardCanvas(gameBoard);
+        jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -50,7 +60,6 @@ public class TetrisGUI extends javax.swing.JFrame {
         setAlwaysOnTop(true);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setForeground(new java.awt.Color(0, 255, 255));
-        setIconImage(getIconImage());
         setIconImages(null);
         setResizable(false);
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -60,15 +69,20 @@ public class TetrisGUI extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("OCR A Std", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 153, 0));
         jLabel1.setText("Score");
 
         jLabel2.setFont(new java.awt.Font("Trajan Pro", 1, 18)); // NOI18N
-        jLabel2.setText("NumberPieces");
+        jLabel2.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel2.setText(" Pieces");
+        jLabel2.setToolTipText("");
 
         scoreValue.setFont(new java.awt.Font("OCR A Std", 1, 24)); // NOI18N
+        scoreValue.setForeground(new java.awt.Color(255, 153, 0));
         scoreValue.setText("0");
 
         numberPiecesValue.setFont(new java.awt.Font("Trajan Pro", 1, 18)); // NOI18N
+        numberPiecesValue.setForeground(new java.awt.Color(255, 153, 0));
         numberPiecesValue.setText("0");
 
         canvas2.setBackground(new java.awt.Color(0, 0, 0));
@@ -77,7 +91,14 @@ public class TetrisGUI extends javax.swing.JFrame {
         canvas2.setMinimumSize(new java.awt.Dimension(401, 401));
         canvas2.setPreferredSize(new java.awt.Dimension(410, 410));
 
+        jLabel3.setBackground(new java.awt.Color(255, 0, 0));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Tetris fondo 1.png"))); // NOI18N
+        jLabel3.setOpaque(true);
+
+        jMenuBar1.setForeground(new java.awt.Color(51, 51, 51));
+
         jMenu1.setText("Game");
+        jMenu1.setToolTipText("");
 
         jMenuItem1.setText("New Game");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -129,36 +150,43 @@ public class TetrisGUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(590, 590, 590)
+                .addComponent(scoreValue, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
                 .addGap(9, 9, 9)
-                .addComponent(canvas2, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scoreValue, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(numberPiecesValue, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(canvas2, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(430, 430, 430)
+                .addComponent(jLabel2))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(590, 590, 590)
+                .addComponent(numberPiecesValue, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(430, 430, 430)
+                .addComponent(jLabel1))
+            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(scoreValue))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(numberPiecesValue)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(canvas2, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(scoreValue))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(canvas2, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addComponent(jLabel2))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addComponent(numberPiecesValue))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel1))
+            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
+        jLabel3.getAccessibleContext().setAccessibleName("backGround");
 
         getAccessibleContext().setAccessibleParent(canvas2);
 
@@ -177,6 +205,7 @@ public class TetrisGUI extends javax.swing.JFrame {
          writeNumberPieces();
          writeScore();
          BoardCanvas.setBoard(gameBoard.tempBoard);
+         System.out.println("Im repainting"); // Debug
          canvas2.repaint();
          }
     }//GEN-LAST:event_formKeyReleased
@@ -233,10 +262,11 @@ public class TetrisGUI extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                /*if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+                }*/
+                UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(TetrisGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -249,12 +279,17 @@ public class TetrisGUI extends javax.swing.JFrame {
         }
         //</editor-fold>
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        
+       java.awt.EventQueue.invokeLater( new Thread(new Runnable() {
             public void run() {
-                JFrame frame = new TetrisGUI();
-                frame.setVisible(true);
-            }
-        });
+              TetrisGUI frame = new TetrisGUI();
+              frame.setVisible(true);  
+              
+              
+            } 
+        }));
+      
+        
     }
     
 
@@ -265,6 +300,7 @@ public class TetrisGUI extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu5;
