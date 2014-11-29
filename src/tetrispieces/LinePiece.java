@@ -16,6 +16,7 @@ public class LinePiece extends TetrisPiece {
     private final int MAXSKIN = 1;
 	
    public LinePiece(){
+          type =1;
 	  positionx = 0;
 	  positiony = 0;
 	  //Set variables in TetrisPiece to the values of this type of Piece

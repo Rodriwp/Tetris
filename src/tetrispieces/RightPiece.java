@@ -23,6 +23,7 @@ public class RightPiece extends TetrisPiece {
     private final int MAXSKIN = 3;
 	
    public RightPiece(){
+                  type =2;
 		  positionx = 0;
 		  positiony = 0;
 		  //Set variables in TetrisPiece to the values of this type of Piece

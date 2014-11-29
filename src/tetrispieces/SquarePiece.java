@@ -11,6 +11,7 @@ public class SquarePiece extends TetrisPiece {
     private final int MAXSKIN = 0;
 	
    public SquarePiece(){
+                  type =7;
 		  positionx = 0;
 		  positiony = 0;
 		  //Set variables in TetrisPiece to the values of this type of Piece
