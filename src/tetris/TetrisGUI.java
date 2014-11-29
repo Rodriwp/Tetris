@@ -5,8 +5,13 @@ import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 
 /**
- *
+ *This is the main class of this tetris game
+ * 
+ * The code is in a public repository https://github.com/Rodriwp/Tetris 
+ * under GNU GPL V3
+ * 
  * @author Rodrigo Mompo
+ * @author Oscar 
  */
 public class TetrisGUI extends javax.swing.JFrame {
     private TetrisGameFunctions gameBoard;
@@ -75,11 +80,6 @@ public class TetrisGUI extends javax.swing.JFrame {
         jMenu1.setText("Game");
 
         jMenuItem1.setText("New Game");
-        jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuItem1MouseClicked(evt);
-            }
-        });
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -180,10 +180,6 @@ public class TetrisGUI extends javax.swing.JFrame {
          canvas2.repaint();
          }
     }//GEN-LAST:event_formKeyReleased
-
-    private void jMenuItem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseClicked
-        
-    }//GEN-LAST:event_jMenuItem1MouseClicked
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         newGame(gameDimension);
