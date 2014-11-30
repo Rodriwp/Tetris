@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This class is for automovingdown thread 
  */
 
 package tetris;
@@ -10,21 +8,39 @@ import java.awt.*;
  *
  * @author Rodrigo Mompo
  */
-public class SpeedRunnable implements Runnable {
+public class SpeedRunnable extends Thread implements Runnable {
+    private Canvas canvas2;
+    private boolean isRunning = true;
+    private boolean running ;
     private TetrisGameFunctions gameBoard;
-    SpeedRunnable(TetrisGUI frame,TetrisGameFunctions gameBoardin){
+    SpeedRunnable(Tetris frame,TetrisGameFunctions gameBoardin){
         gameBoard = gameBoardin;
-        //canvas2 = frame.canvas2;
+        canvas2 = frame.canvas2; 
+        running = false;
         
     }
+    public void pauseThread() throws InterruptedException{
+        this.running = false;
+        System.out.println("Is workin pause");
+    }
+
+     public void resumeThread(){
+        this.running = true;
+        System.out.println("Is workin resume");
+    } 
     public void run() {
-        while(true){
-                    try{Thread.sleep(1000);}catch(Exception e){};
-                    System.out.println("Hello from a thread!");
-                    gameBoard.iteration("S");
-                    //BoardCanvas.setBoard(gameBoard.tempBoard);
-                    //BoardCanvas.repaintCanvas(canvas2);
-                }
+      while(true){
+        try{Thread.sleep(750);}catch(Exception e){};
+        if(this.running){      
+                    isRunning = gameBoard.iteration();
+                    if(!isRunning){
+                    BoardCanvas.setGameOver(true);
+                    }
+                    BoardCanvas.setBoard(gameBoard.tempBoard);
+                    BoardCanvas.repaintCanvas(canvas2);  
+            }
+        try{Thread.sleep(750);}catch(Exception e){};
+        }
         
     }
 }

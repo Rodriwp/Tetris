@@ -3,32 +3,37 @@ package tetris;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 /**
  *This is the main class of this tetris game
+ * The graphical interfaces was made using NetBeans and Jframe pluging
  * 
+ * All the media content is made with GIMP. The images are under CC BY-SA 3.0
  * The code is in a public repository https://github.com/Rodriwp/Tetris 
  * under GNU GPL V3
  * 
  * @author Rodrigo Mompo
- * @author Oscar 
+ * @author Oscar Jimenez Rama
  */
-public class TetrisGUI extends javax.swing.JFrame {
+public class Tetris extends javax.swing.JFrame {
     private TetrisGameFunctions gameBoard;
-    public Thread speed;
+    public SpeedRunnable speed;
     private int gameDimension = 8;
-    public TetrisGUI() {
+    private int gameControls = 0;
+    private boolean pause = true;
+    
+    public Tetris() {
         
         gameBoard = new TetrisGameFunctions(gameDimension);
         initComponents();
         setBackground(Color.blue);
         setIconImage(new ImageIcon(getClass().getResource("/images/TetrisLogoFondoNegro.png")).getImage());
         //Thread for autogoDown 
-         speed = new Thread(new SpeedRunnable(this,this.gameBoard));
+         speed = new SpeedRunnable(this,this.gameBoard);
         //End of the thread
          speed.start();
+         
     }
 
     /**
@@ -54,9 +59,16 @@ public class TetrisGUI extends javax.swing.JFrame {
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
         jCheckBoxMenuItem3 = new javax.swing.JCheckBoxMenuItem();
+        Controls = new javax.swing.JMenu();
+        jCheckBoxMenuItem4 = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItem5 = new javax.swing.JCheckBoxMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Tetris");
+        setTitle("Tetris  Beta 2.0");
         setAlwaysOnTop(true);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setForeground(new java.awt.Color(0, 255, 255));
@@ -141,7 +153,49 @@ public class TetrisGUI extends javax.swing.JFrame {
 
         jMenu2.add(jMenu5);
 
+        Controls.setText("Controls");
+
+        jCheckBoxMenuItem4.setSelected(true);
+        jCheckBoxMenuItem4.setText("ASDW      L");
+        jCheckBoxMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem4ActionPerformed(evt);
+            }
+        });
+        Controls.add(jCheckBoxMenuItem4);
+
+        jCheckBoxMenuItem5.setText("Arrows    Z");
+        jCheckBoxMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem5ActionPerformed(evt);
+            }
+        });
+        Controls.add(jCheckBoxMenuItem5);
+
+        jMenu2.add(Controls);
+
         jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Help");
+
+        jMenuItem2.setText("Controls");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem2);
+        jMenu3.add(jSeparator1);
+
+        jMenuItem3.setText("About");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
 
@@ -150,27 +204,26 @@ public class TetrisGUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(590, 590, 590)
-                .addComponent(scoreValue, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addComponent(canvas2, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(430, 430, 430)
-                .addComponent(jLabel2))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(590, 590, 590)
-                .addComponent(numberPiecesValue, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(430, 430, 430)
-                .addComponent(jLabel1))
-            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(canvas2, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(430, 430, 430)
+                                .addComponent(jLabel1)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(scoreValue, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(60, 60, 60)
+                        .addComponent(numberPiecesValue, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(scoreValue))
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(canvas2, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -178,7 +231,9 @@ public class TetrisGUI extends javax.swing.JFrame {
                 .addGap(80, 80, 80)
                 .addComponent(jLabel2))
             .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addGap(37, 37, 37)
+                .addComponent(scoreValue)
+                .addGap(18, 18, 18)
                 .addComponent(numberPiecesValue))
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
@@ -195,19 +250,30 @@ public class TetrisGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
-         if(BoardCanvas.getGameOver()||!gameBoard.iteration(KeyEvent.getKeyText(evt.getKeyCode()))){
-                         //FIXME: change for a graphical interface
+        if("P".equals(KeyEvent.getKeyText(evt.getKeyCode()))){
+          if(pause){pause = false;}else{pause = true;}
+        }
+        if(!pause){
+            speed.resumeThread();
+        BoardCanvas.setPause(false);
+        if(BoardCanvas.getGameOver()||!gameBoard.iteration(gameControls,KeyEvent.getKeyText(evt.getKeyCode()))){
                         BoardCanvas.setGameOver(true);
                         canvas2.repaint();
-                        System.out.println("gameOver");
+                        speed.stop();
          }else{
          BoardCanvas.setGameOver(false);
          writeNumberPieces();
          writeScore();
          BoardCanvas.setBoard(gameBoard.tempBoard);
-         System.out.println("Im repainting"); // Debug
          canvas2.repaint();
          }
+        }else{
+            try{
+            speed.pauseThread();}
+            catch(Exception e){};
+            BoardCanvas.setPause(true);
+            canvas2.repaint();
+        }
     }//GEN-LAST:event_formKeyReleased
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -238,6 +304,28 @@ public class TetrisGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jCheckBoxMenuItem3ActionPerformed
 
+    private void jCheckBoxMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem4ActionPerformed
+        if(jCheckBoxMenuItem4.getState()== true){
+            gameControls = 0;
+            jCheckBoxMenuItem5.setState(false);
+        }
+    }//GEN-LAST:event_jCheckBoxMenuItem4ActionPerformed
+
+    private void jCheckBoxMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem5ActionPerformed
+        if(jCheckBoxMenuItem5.getState()== true){
+            gameControls = 1;
+            jCheckBoxMenuItem4.setState(false);
+        }
+    }//GEN-LAST:event_jCheckBoxMenuItem5ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        DialogMessage message = new DialogMessage(this,0);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        DialogMessage message = new DialogMessage(this,1);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     public void writeNumberPieces(){
         String value = Integer.toString(gameBoard.getSNumberPieces());
         this.numberPiecesValue.setText(value);}
@@ -248,8 +336,23 @@ public class TetrisGUI extends javax.swing.JFrame {
         gameBoard = new TetrisGameFunctions(dimensionGame);
         writeNumberPieces();
         writeScore();
+        
         BoardCanvas.setBoard(gameBoard.tempBoard);
         BoardCanvas.setGameOver(false);
+        pause = true;
+
+            try{
+            speed.pauseThread();}
+            catch(Exception e){};
+            BoardCanvas.setPause(true);
+        speed.stop();
+        speed = new SpeedRunnable(this,this.gameBoard);
+        speed.start();
+        pause = true;
+        try{
+        speed.pauseThread();}
+        catch(Exception e){};
+        BoardCanvas.beginning = 0;
         canvas2.repaint();
         
     }
@@ -269,20 +372,20 @@ public class TetrisGUI extends javax.swing.JFrame {
                 UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TetrisGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tetris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TetrisGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tetris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TetrisGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tetris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TetrisGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tetris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         /* Create and display the form */
         
        java.awt.EventQueue.invokeLater( new Thread(new Runnable() {
             public void run() {
-              TetrisGUI frame = new TetrisGUI();
+              Tetris frame = new Tetris();
               frame.setVisible(true);  
               
               
@@ -294,18 +397,25 @@ public class TetrisGUI extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Canvas canvas2;
+    private javax.swing.JMenu Controls;
+    public java.awt.Canvas canvas2;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem3;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem4;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel numberPiecesValue;
     private javax.swing.JLabel scoreValue;
     // End of variables declaration//GEN-END:variables

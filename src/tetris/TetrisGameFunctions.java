@@ -112,7 +112,8 @@ public class TetrisGameFunctions {
 	  }
 		return -1;
 	}
-        private boolean movePiece(){
+        private boolean movePiece(int gameControl){
+            if(gameControl==0){
             switch(button){
     		   case "A" :
     			   tempBoard.update(); 
@@ -152,7 +153,47 @@ public class TetrisGameFunctions {
                           //+", try again");//For debuging
     			   break;   
     		   }
-    		    
+            }else{
+             switch(button){
+                   case "Izquierda" :
+    			   tempBoard.update(); 
+    			   //System.out.println("Debug: a");//For debugging
+    			   currentPiece.goLeft(board);
+    			   tempBoard.insertNewPiece(currentPiece);
+                           
+    			   break;
+    		   case "Abajo" :
+    			   tempBoard.update(); 
+    			   //System.out.println("Debug: s");//For debugging
+    			   currentPiece.cantMoveMore = currentPiece.goDown(board);
+    			   tempBoard.insertNewPiece(currentPiece);
+    			   break;
+    		   case "Derecha" :
+    			   tempBoard.update(); 
+    			   //System.out.println("Debug: d");//For debugging
+    			   currentPiece.goRight(board);
+    			   tempBoard.insertNewPiece(currentPiece);
+    			   break;
+    		   case "Arriba" :
+    			   tempBoard.update(); 
+    			   //System.out.println("Debug: w");//For debugging
+    			   while(!currentPiece.cantMoveMore){
+    			   currentPiece.cantMoveMore = currentPiece.goDown(board);
+    			   }
+    			   tempBoard.insertNewPiece(currentPiece);
+    			   break;
+    		   case "Z" :
+    			   tempBoard.update(); 
+    			   //System.out.println("Debug: l");//For debugging
+    			   currentPiece.rotate(board);
+    			   tempBoard.insertNewPiece(currentPiece);
+    			   break;
+    		   default:
+    		          //System.out.println("The button is not valid"
+                          //+", try again");//For debuging
+    			   break;   
+    		   }
+            }    
     	   //End of selection of movement
        
         return currentPiece.cantMoveMore;
@@ -183,12 +224,13 @@ public class TetrisGameFunctions {
            }
         }
     //This is the principal method
-    public  boolean iteration(String buttonin){
+    public  boolean iteration(int gameControl,String buttonin){
            //System.out.println("Debug: iteration");//For debugging
     	   this.writeButton(buttonin);
-           if(this.movePiece()){
+           if(this.movePiece(gameControl)){
               numberPieces +=1;
               score+=1;
+              System.out.println("Score: "+score);//Debug
               insertNewPieceBoard(currentPiece,board);
               tempBoard.insertNewPieceAux(currentPiece);
               this.changeRowComplete();
@@ -201,6 +243,27 @@ public class TetrisGameFunctions {
              }
            }
        return true;
+       
+    }
+    public  boolean iteration(){
+    	   button = "S";
+           if(this.movePiece(0)){
+              numberPieces +=1;
+              score+=1;
+              System.out.println("Score: "+score);//Debug
+              insertNewPieceBoard(currentPiece,board);
+              tempBoard.insertNewPieceAux(currentPiece);
+              this.changeRowComplete();
+              tempBoard.update(); 
+              if(boardSpaceLeft()){
+              currentPiece =this.randomPiece();
+              tempBoard.insertNewPiece(currentPiece);
+              }else{
+               return false;
+             }
+           }
+       return true;
+       
     }
 }
         

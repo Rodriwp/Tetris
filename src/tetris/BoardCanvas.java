@@ -3,22 +3,27 @@ package tetris;
 import java.awt.*;
 public class BoardCanvas extends Canvas{
     public int squareWidth;
+    public static int beginning = 0;
     private final Font FONT = new Font("TimesRoman", Font.BOLD, 70);
+    private final Font FONT2 = new Font("TimesRoman", Font.BOLD, 50);
     private static int [][] printBoard;
     private static boolean gameOver = false;
+    private static boolean pause = false;
     BoardCanvas(TetrisGameFunctions gameBoard){
         printBoard = new int [20][20];
         BoardCanvas.setBoard(gameBoard.tempBoard);
-        this.repaint();
     }
     public static void setBoard(TetrisPrint tempboard){
         printBoard = tempboard.board;
     }
-    /*public static  void repaintCanvas(Canvas canvas2){
+    public static  void repaintCanvas(Canvas canvas2){
         canvas2.repaint();
-    }*/
+    }
     public static void setGameOver(boolean a){
         gameOver = a;
+    }
+    public static void setPause(boolean a){
+        pause = a;
     }
     public static boolean getGameOver(){
         return gameOver;
@@ -63,10 +68,20 @@ public class BoardCanvas extends Canvas{
               }
           }    
         }
-      if(gameOver){
+       
+      if(beginning<3){
+        g.setColor(Color.blue);
+        g.setFont(FONT2);
+        g.drawString("Press P to Start", 10, 200);
+        beginning=beginning+1;
+       }else if(gameOver){
         g.setColor(Color.red);
         g.setFont(FONT);
         g.drawString("GameOver", 20, 200);
+       }else if(pause){
+        g.setColor(Color.blue);
+        g.setFont(FONT);
+        g.drawString("Pause", 80, 200);
        }
      }
 
