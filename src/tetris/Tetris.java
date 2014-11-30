@@ -30,7 +30,7 @@ public class Tetris extends javax.swing.JFrame {
         gameBoard = new TetrisGameFunctions(gameDimension);
         initComponents();
         setBackground(Color.blue);
-        setIconImage(new ImageIcon(getClass().getResource("/images/TetrisLogoFondoNegro.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/media/TetrisLogoFondoNegro.png")).getImage());
         //Thread for autogoDown 
          speed = new SpeedRunnable(this,this.gameBoard);
         //End of the thread
@@ -106,7 +106,7 @@ public class Tetris extends javax.swing.JFrame {
         canvas2.setPreferredSize(new java.awt.Dimension(410, 410));
 
         jLabel3.setBackground(new java.awt.Color(255, 0, 0));
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Tetris fondo 1.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/media/Tetris fondo 1.png"))); // NOI18N
         jLabel3.setOpaque(true);
 
         jMenuBar1.setForeground(new java.awt.Color(51, 51, 51));
@@ -389,8 +389,6 @@ public class Tetris extends javax.swing.JFrame {
             public void run() {
               Tetris frame = new Tetris();
               frame.setVisible(true);  
-              
-              
             } 
         }));
       

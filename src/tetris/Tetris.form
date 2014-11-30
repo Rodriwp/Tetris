@@ -286,7 +286,7 @@
           <Color blue="0" green="0" red="ff" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/Tetris fondo 1.png"/>
+          <Image iconType="3" name="/media/Tetris fondo 1.png"/>
         </Property>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>

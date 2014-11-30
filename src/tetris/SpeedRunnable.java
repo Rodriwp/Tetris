@@ -21,12 +21,10 @@ public class SpeedRunnable extends Thread implements Runnable {
     }
     public void pauseThread() throws InterruptedException{
         this.running = false;
-        System.out.println("Is workin pause");
     }
 
      public void resumeThread(){
         this.running = true;
-        System.out.println("Is workin resume");
     } 
     public void run() {
       while(true){

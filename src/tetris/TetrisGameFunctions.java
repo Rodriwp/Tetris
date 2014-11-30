@@ -230,7 +230,7 @@ public class TetrisGameFunctions {
            if(this.movePiece(gameControl)){
               numberPieces +=1;
               score+=1;
-              System.out.println("Score: "+score);//Debug
+              //System.out.println("Score: "+score);//Debug
               insertNewPieceBoard(currentPiece,board);
               tempBoard.insertNewPieceAux(currentPiece);
               this.changeRowComplete();
@@ -250,7 +250,7 @@ public class TetrisGameFunctions {
            if(this.movePiece(0)){
               numberPieces +=1;
               score+=1;
-              System.out.println("Score: "+score);//Debug
+              //System.out.println("Score: "+score);//Debug
               insertNewPieceBoard(currentPiece,board);
               tempBoard.insertNewPieceAux(currentPiece);
               this.changeRowComplete();
