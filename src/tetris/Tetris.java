@@ -13,8 +13,10 @@ import javax.swing.UIManager;
  * The code is in a public repository https://github.com/Rodriwp/Tetris 
  * under GNU GPL V3
  * 
+ * 
  * @author Rodrigo Mompo
  * @author Oscar Jimenez Rama
+ * @version Beta 2.0
  */
 public class Tetris extends javax.swing.JFrame {
     private TetrisGameFunctions gameBoard;

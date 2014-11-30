@@ -29,10 +29,8 @@ public class BoardCanvas extends Canvas{
         return gameOver;
     }
     @Override
-    public void paint(Graphics g){
+    public  void  paint(Graphics g){
        squareWidth = getWidth()/printBoard.length;
-       g.setColor(getBackground());
-       g.drawRect(0, 0,getWidth(), getHeight());
        for(int i = 0;i<400;i=i+squareWidth){
            for(int j = 0;j<400;j=j+squareWidth){
            g.setColor(Color.black);
