@@ -18,7 +18,7 @@ import java.applet.Applet;
  * 
  * @author Rodrigo Mompo
  * @author Oscar Jimenez Rama
- * @version Beta 2.0
+ * @version Beta 2.1
  */
 public class Tetris extends javax.swing.JFrame {
     private TetrisGameFunctions gameBoard;
