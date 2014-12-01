@@ -28,6 +28,11 @@ public class BoardCanvas extends Canvas{
     public static boolean getGameOver(){
         return gameOver;
     }
+    
+    @Override
+    public void update(Graphics g) {
+        paint(g);
+    }
     @Override
     public  void  paint(Graphics g){
        squareWidth = getWidth()/printBoard.length;

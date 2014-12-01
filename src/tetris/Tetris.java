@@ -4,6 +4,8 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.UIManager;
+import java.awt.Graphics; 
+import java.applet.Applet;
 
 /**
  *This is the main class of this tetris game
@@ -23,6 +25,7 @@ public class Tetris extends javax.swing.JFrame {
     public SpeedRunnable speed;
     private int gameDimension = 8;
     private int gameControls = 0;
+    private int previousSpeed = 1500;
     private boolean pause = true;
     
     public Tetris() {
@@ -61,6 +64,12 @@ public class Tetris extends javax.swing.JFrame {
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
         jCheckBoxMenuItem3 = new javax.swing.JCheckBoxMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jCheckBoxMenuItem6 = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItem7 = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItem8 = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItem9 = new javax.swing.JCheckBoxMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         Controls = new javax.swing.JMenu();
         jCheckBoxMenuItem4 = new javax.swing.JCheckBoxMenuItem();
         jCheckBoxMenuItem5 = new javax.swing.JCheckBoxMenuItem();
@@ -154,6 +163,44 @@ public class Tetris extends javax.swing.JFrame {
         jMenu5.add(jCheckBoxMenuItem3);
 
         jMenu2.add(jMenu5);
+
+        jMenu4.setLabel("Game Speed");
+
+        jCheckBoxMenuItem6.setLabel("Easy");
+        jCheckBoxMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jCheckBoxMenuItem6);
+
+        jCheckBoxMenuItem7.setSelected(true);
+        jCheckBoxMenuItem7.setLabel("Normal");
+        jCheckBoxMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jCheckBoxMenuItem7);
+
+        jCheckBoxMenuItem8.setLabel("Hard");
+        jCheckBoxMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jCheckBoxMenuItem8);
+
+        jCheckBoxMenuItem9.setLabel("Epic");
+        jCheckBoxMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jCheckBoxMenuItem9);
+
+        jMenu2.add(jMenu4);
+        jMenu2.add(jSeparator2);
 
         Controls.setText("Controls");
 
@@ -328,6 +375,47 @@ public class Tetris extends javax.swing.JFrame {
         DialogMessage message = new DialogMessage(this,1);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jCheckBoxMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem9ActionPerformed
+        
+        if(jCheckBoxMenuItem9.getState()== true){
+            speed.setSpeed(300);
+            previousSpeed =300 ;
+            jCheckBoxMenuItem6.setState(false);
+            jCheckBoxMenuItem7.setState(false);
+            jCheckBoxMenuItem8.setState(false);
+        }
+    }//GEN-LAST:event_jCheckBoxMenuItem9ActionPerformed
+
+    private void jCheckBoxMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem6ActionPerformed
+        if(jCheckBoxMenuItem6.getState()== true){
+            speed.setSpeed(2000);
+            previousSpeed = 2000;
+            jCheckBoxMenuItem9.setState(false);
+            jCheckBoxMenuItem7.setState(false);
+            jCheckBoxMenuItem8.setState(false);
+        }
+    }//GEN-LAST:event_jCheckBoxMenuItem6ActionPerformed
+
+    private void jCheckBoxMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem8ActionPerformed
+        if(jCheckBoxMenuItem8.getState()== true){
+            speed.setSpeed(1000);
+            previousSpeed = 1000;
+            jCheckBoxMenuItem6.setState(false);
+            jCheckBoxMenuItem7.setState(false);
+            jCheckBoxMenuItem9.setState(false);
+        }// TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBoxMenuItem8ActionPerformed
+
+    private void jCheckBoxMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem7ActionPerformed
+        if(jCheckBoxMenuItem7.getState()== true){
+            speed.setSpeed(1500);
+            previousSpeed = 1500;
+            jCheckBoxMenuItem6.setState(false);
+            jCheckBoxMenuItem9.setState(false);
+            jCheckBoxMenuItem8.setState(false);
+        }
+    }//GEN-LAST:event_jCheckBoxMenuItem7ActionPerformed
+
     public void writeNumberPieces(){
         String value = Integer.toString(gameBoard.getSNumberPieces());
         this.numberPiecesValue.setText(value);}
@@ -356,6 +444,8 @@ public class Tetris extends javax.swing.JFrame {
         catch(Exception e){};
         BoardCanvas.beginning = 0;
         canvas2.repaint();
+        speed.setSpeed(previousSpeed);
+        
         
     }
 
@@ -388,8 +478,9 @@ public class Tetris extends javax.swing.JFrame {
        java.awt.EventQueue.invokeLater( new Thread(new Runnable() {
             public void run() {
               Tetris frame = new Tetris();
-              frame.setVisible(true);  
-            } 
+              frame.setVisible(true); 
+            }
+            
         }));
       
         
@@ -404,18 +495,24 @@ public class Tetris extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem3;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem4;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem5;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem6;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem7;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem8;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel numberPiecesValue;
     private javax.swing.JLabel scoreValue;
     // End of variables declaration//GEN-END:variables

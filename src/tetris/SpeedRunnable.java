@@ -13,11 +13,15 @@ public class SpeedRunnable extends Thread implements Runnable {
     private boolean isRunning = true;
     private boolean running ;
     private TetrisGameFunctions gameBoard;
+    private int gameSpeed=1500;
     SpeedRunnable(Tetris frame,TetrisGameFunctions gameBoardin){
         gameBoard = gameBoardin;
         canvas2 = frame.canvas2; 
-        running = false;
+        running = false;    
         
+    }
+    public void setSpeed(int speedin) {
+        this.gameSpeed = speedin;
     }
     public void pauseThread() throws InterruptedException{
         this.running = false;
@@ -28,7 +32,8 @@ public class SpeedRunnable extends Thread implements Runnable {
     } 
     public void run() {
       while(true){
-        try{Thread.sleep(750);}catch(Exception e){};
+         
+        try{Thread.sleep(gameSpeed/2);}catch(Exception e){};
         if(this.running){      
                     isRunning = gameBoard.iteration();
                     if(!isRunning){
@@ -37,7 +42,7 @@ public class SpeedRunnable extends Thread implements Runnable {
                     BoardCanvas.setBoard(gameBoard.tempBoard);
                     BoardCanvas.repaintCanvas(canvas2);  
             }
-        try{Thread.sleep(750);}catch(Exception e){};
+        try{Thread.sleep(gameSpeed/2);}catch(Exception e){};
         }
         
     }
