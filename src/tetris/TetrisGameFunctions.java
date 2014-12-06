@@ -60,7 +60,7 @@ public class TetrisGameFunctions {
 				y++;
 			}
 	    }
-        private  TetrisPiece randomPiece(){
+    private  TetrisPiece randomPiece(){
 	  TetrisPiece piece;
 	  double random = Math.random()*0.9;		
       random *= 8;
@@ -112,7 +112,7 @@ public class TetrisGameFunctions {
 	  }
 		return -1;
 	}
-        private boolean movePiece(int gameControl){
+    private boolean movePiece(int gameControl){
             if(gameControl==0){
             switch(button){
     		   case "A" :
@@ -198,7 +198,7 @@ public class TetrisGameFunctions {
        
         return currentPiece.cantMoveMore;
      }
-        private void changeRowComplete(){
+    private void changeRowComplete(){
            rowcompletenumber = isRowComplete(board);
            auxboard = board;
     	   while(!(rowcompletenumber == -1)){

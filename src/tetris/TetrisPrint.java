@@ -11,7 +11,7 @@ import tetrispieces.*;
 
 public class TetrisPrint {
 	protected int [][]board;
-        private  int [][]auxboard;
+    private  int [][]auxboard;
 	TetrisPrint(int dimensionBoard){
             board=new int[dimensionBoard][dimensionBoard];
             auxboard=new int[dimensionBoard][dimensionBoard];
